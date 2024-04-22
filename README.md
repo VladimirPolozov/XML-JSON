@@ -13,3 +13,7 @@
 2. Реализовать ведение логов в виде JSON. Проводить анализ необходимости синхронизации, учитывая предыдущие изменения, записанные в JSON-логе.
    
 Материалы по работе с JSON изучить самостоятельно.
+
+Через инструмент NuGet Package Manager (Tools > NuGet Package Manager > Package Manager Console) установить необходимые для работы программы пакеты, используя следующие команды:
+`NuGet\Install-Package Serilog.Sinks.File -Version 5.0.0`
+`NuGet\Install-Package Serilog.Formatting.Compact -Version 2.0.0`
