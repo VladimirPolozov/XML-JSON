@@ -35,13 +35,13 @@ namespace WindowsFormsLab
                 {
                     File.Copy(primaryDirectoryFile.FullName, targetDirectoryFile.FullName, true);
                     resultEntries.Add($"Файл {primaryDirectoryFile.Name} добавлен");
-                    logger.Info($"Резултат синхронизации: файл {primaryDirectoryFile.Name} добавлен в директорию {targetDirectoryPath}");
+                    logger.Info($"Результат синхронизации: файл {primaryDirectoryFile.Name} добавлен в директорию {targetDirectoryPath}");
                 }
                 else if (targetDirectoryFile.LastWriteTime != primaryDirectoryFile.LastWriteTime)
                 {
                     File.Copy(primaryDirectoryFile.FullName, targetDirectoryFile.FullName, true);
                     resultEntries.Add($"Файл {primaryDirectoryFile.Name} изменен");
-                    logger.Info($"Резултат синхронизации: файл {primaryDirectoryFile.Name} в директории {targetDirectoryPath} изменен");
+                    logger.Info($"Результат синхронизации: файл {primaryDirectoryFile.Name} в директории {targetDirectoryPath} изменен");
                 }
             }
 
@@ -53,14 +53,14 @@ namespace WindowsFormsLab
                 {
                     targetDirectoryFile.Delete();
                     resultEntries.Add($"Файл {targetDirectoryFile.Name} удален");
-                    logger.Info($"Резултат синхронизации: файл {targetDirectoryFile.Name} удален из директории {targetDirectoryPath}");
+                    logger.Info($"Результат синхронизации: файл {targetDirectoryFile.Name} удален из директории {targetDirectoryPath}");
                 }
             }
 
             if (resultEntries.Count == 0)
             {
                 resultEntries.Add("Директории идентичны");
-                logger.Info($"Резултат синхронизации: директории не нуждались в синхронизации");
+                logger.Info($"Результат синхронизации: директории не нуждались в синхронизации");
             }
 
             return resultEntries;
