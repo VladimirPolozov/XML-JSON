@@ -17,7 +17,6 @@ namespace WindowsFormsLab
     }
 
     class SynchronizationModel {
-        [Obsolete]
         public List<string> SynchronizeDirectories(string primaryDirectoryPath, string targetDirectoryPath)
         {   
             Logger logger = LogManager.GetCurrentClassLogger();
