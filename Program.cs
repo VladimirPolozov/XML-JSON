@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using NLog;
 
 namespace WindowsFormsLab
 {
@@ -16,12 +17,16 @@ namespace WindowsFormsLab
     }
 
     class SynchronizationModel {
+        [Obsolete]
         public List<string> SynchronizeDirectories(string primaryDirectoryPath, string targetDirectoryPath)
-        {
+        {   
+            Logger logger = LogManager.GetCurrentClassLogger();
+
             DirectoryInfo primaryDirectoryInfo = new DirectoryInfo(primaryDirectoryPath);
             DirectoryInfo targetDirectoryInfo = new DirectoryInfo(targetDirectoryPath);
             List<string> resultEntries = new List<string>();
-            Console.WriteLine(primaryDirectoryPath + " " + targetDirectoryPath);
+
+            logger.Info($"Синхронизация директории {targetDirectoryPath} до соответствия с директорией {primaryDirectoryPath}Результат:");
 
             foreach (FileInfo primaryDirectoryFile in primaryDirectoryInfo.GetFiles())
             {
@@ -31,12 +36,14 @@ namespace WindowsFormsLab
                 {
                     File.Copy(primaryDirectoryFile.FullName, targetDirectoryFile.FullName, true);
                     resultEntries.Add($"Файл {primaryDirectoryFile.Name} добавлен");
+                    logger.Info($"Файл {primaryDirectoryFile.Name} добавлен в директорию {targetDirectoryPath}");
                 }
                 else if (targetDirectoryFile.LastWriteTime != primaryDirectoryFile.LastWriteTime)
                 {
                     File.Copy(primaryDirectoryFile.FullName, targetDirectoryFile.FullName, true);
                     resultEntries.Add($"Файл {primaryDirectoryFile.Name} изменен");
-                }                
+                    logger.Info($"Файл {primaryDirectoryFile.Name} в директории {targetDirectoryPath} изменен");
+                }
             }
 
             foreach (FileInfo targetDirectoryFile in targetDirectoryInfo.GetFiles())
@@ -47,12 +54,14 @@ namespace WindowsFormsLab
                 {
                     targetDirectoryFile.Delete();
                     resultEntries.Add($"Файл {targetDirectoryFile.Name} удален");
+                    logger.Info($"Файл {targetDirectoryFile.Name} удален из директории {targetDirectoryPath}");
                 }
             }
 
             if (resultEntries.Count == 0)
             {
                 resultEntries.Add("Директории идентичны");
+                logger.Info($"Директории идентичны");
             }
 
             return resultEntries;
