@@ -26,7 +26,7 @@ namespace WindowsFormsLab
             DirectoryInfo targetDirectoryInfo = new DirectoryInfo(targetDirectoryPath);
             List<string> resultEntries = new List<string>();
 
-            logger.Info($"Синхронизация директории {targetDirectoryPath} до соответствия с директорией {primaryDirectoryPath}Результат:");
+            logger.Info($"Синхронизация директории {targetDirectoryPath} до соответствия с директорией {primaryDirectoryPath}");
 
             foreach (FileInfo primaryDirectoryFile in primaryDirectoryInfo.GetFiles())
             {
@@ -36,13 +36,13 @@ namespace WindowsFormsLab
                 {
                     File.Copy(primaryDirectoryFile.FullName, targetDirectoryFile.FullName, true);
                     resultEntries.Add($"Файл {primaryDirectoryFile.Name} добавлен");
-                    logger.Info($"Файл {primaryDirectoryFile.Name} добавлен в директорию {targetDirectoryPath}");
+                    logger.Info($"Резултат синхронизации: файл {primaryDirectoryFile.Name} добавлен в директорию {targetDirectoryPath}");
                 }
                 else if (targetDirectoryFile.LastWriteTime != primaryDirectoryFile.LastWriteTime)
                 {
                     File.Copy(primaryDirectoryFile.FullName, targetDirectoryFile.FullName, true);
                     resultEntries.Add($"Файл {primaryDirectoryFile.Name} изменен");
-                    logger.Info($"Файл {primaryDirectoryFile.Name} в директории {targetDirectoryPath} изменен");
+                    logger.Info($"Резултат синхронизации: файл {primaryDirectoryFile.Name} в директории {targetDirectoryPath} изменен");
                 }
             }
 
@@ -54,14 +54,14 @@ namespace WindowsFormsLab
                 {
                     targetDirectoryFile.Delete();
                     resultEntries.Add($"Файл {targetDirectoryFile.Name} удален");
-                    logger.Info($"Файл {targetDirectoryFile.Name} удален из директории {targetDirectoryPath}");
+                    logger.Info($"Резултат синхронизации: файл {targetDirectoryFile.Name} удален из директории {targetDirectoryPath}");
                 }
             }
 
             if (resultEntries.Count == 0)
             {
                 resultEntries.Add("Директории идентичны");
-                logger.Info($"Директории идентичны");
+                logger.Info($"Резултат синхронизации: директории не нуждались в синхронизации");
             }
 
             return resultEntries;
