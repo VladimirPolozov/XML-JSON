@@ -10,8 +10,15 @@ namespace WindowsFormsLab
         string firstDirectoryPath;
         string secondDirectoryPath;
 
-        public string GetFirstDirectoryPath() { return firstDirectoryPath; }
-        public string GetSecondDirectoryPath() { return secondDirectoryPath; }
+        public string GetFirstDirectoryPath()
+        {
+            return firstDirectoryPath;
+        }
+
+        public string GetSecondDirectoryPath()
+        {
+            return secondDirectoryPath;
+        }
 
         public event EventHandler<EventArgs> SynchronizeFirstDirectoryWithSecondDirectoryEvent;
         public event EventHandler<EventArgs> SynchronizeSecondDirectoryWithFirstDirectoryEvent;
